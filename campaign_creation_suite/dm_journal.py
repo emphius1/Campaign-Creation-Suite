@@ -1,35 +1,31 @@
 ```python
-from campaign_creation_suite.assets.timeline import TimelineEventSchema
-from campaign_creation_suite.utils import send_message
+from shared_dependencies.exported_variables import timeline_events, player_actions
+from shared_dependencies.data_schemas import TimelineEventSchema, PlayerActionSchema
+from shared_dependencies.message_names import TimelineEventLogged, PlayerActionPerformed
+from shared_dependencies.function_names import logTimelineEvent, performPlayerAction
 
 class DMJournal:
     def __init__(self):
-        self.timeline_events = []
-        self.player_actions = []
+        self.timeline_events = timeline_events
+        self.player_actions = player_actions
 
-    def log_timeline_event(self, event_data):
-        event = TimelineEventSchema().load(event_data)
-        self.timeline_events.append(event)
-        send_message('TimelineEventLogged', event)
-        return event
+    def log_event(self, event):
+        if isinstance(event, TimelineEventSchema):
+            self.timeline_events.append(event)
+            logTimelineEvent(event)
+            return TimelineEventLogged
+        else:
+            raise ValueError("Invalid event schema")
 
-    def log_player_action(self, action_data):
-        action = PlayerActionSchema().load(action_data)
-        self.player_actions.append(action)
-        send_message('PlayerActionPerformed', action)
-        return action
-
-    def get_timeline(self):
-        return [event.dump() for event in self.timeline_events]
-
-    def get_player_actions(self):
-        return [action.dump() for action in self.player_actions]
+    def log_player_action(self, action):
+        if isinstance(action, PlayerActionSchema):
+            self.player_actions.append(action)
+            performPlayerAction(action)
+            return PlayerActionPerformed
+        else:
+            raise ValueError("Invalid action schema")
 
     def share_updates(self):
-        updates = {
-            'timeline': self.get_timeline(),
-            'player_actions': self.get_player_actions()
-        }
-        send_message('UpdatesShared', updates)
-        return updates
+        # This function can be implemented to share updates with players
+        pass
 ```

@@ -1,64 +1,35 @@
 ```python
-import json
-from .utils import NPCSchema
+from shared_dependencies.data_schemas import NPCSchema
+from shared_dependencies.exported_variables import npc_list
+from shared_dependencies.message_names import NPCCreated
+from shared_dependencies.function_names import createNPC
 
-npc_list = []
+class NPCCradle:
+    def __init__(self):
+        self.npc_schema = NPCSchema()
+        self.npc_list = npc_list
+
+    def create_npc(self, npc_data):
+        new_npc = self.npc_schema.load(npc_data)
+        self.npc_list.append(new_npc)
+        self.notify_npc_created(new_npc)
+
+    def notify_npc_created(self, npc):
+        message = {
+            "name": NPCCreated,
+            "data": {
+                "npc": npc
+            }
+        }
+        self.send_message(message)
+
+    def send_message(self, message):
+        # This function will send the message to the appropriate destination.
+        # The implementation of this function depends on the specific message passing or event system you are using.
+        pass
+
+npc_cradle = NPCCradle()
 
 def createNPC(npc_data):
-    """
-    Function to create a new NPC based on the provided data.
-    """
-    npc = NPCSchema().load(npc_data)
-    npc_list.append(npc)
-    return npc
-
-def updateNPC(npc_id, npc_data):
-    """
-    Function to update an existing NPC based on the provided data.
-    """
-    for npc in npc_list:
-        if npc['id'] == npc_id:
-            npc.update(npc_data)
-            return npc
-    return None
-
-def deleteNPC(npc_id):
-    """
-    Function to delete an existing NPC based on the provided id.
-    """
-    for npc in npc_list:
-        if npc['id'] == npc_id:
-            npc_list.remove(npc)
-            return True
-    return False
-
-def getNPC(npc_id):
-    """
-    Function to get an existing NPC based on the provided id.
-    """
-    for npc in npc_list:
-        if npc['id'] == npc_id:
-            return npc
-    return None
-
-def getAllNPCs():
-    """
-    Function to get all existing NPCs.
-    """
-    return npc_list
-
-def saveNPCsToFile(filename="npcs.json"):
-    """
-    Function to save all NPCs to a file.
-    """
-    with open(filename, 'w') as f:
-        json.dump(npc_list, f, cls=NPCSchema)
-
-def loadNPCsFromFile(filename="npcs.json"):
-    """
-    Function to load all NPCs from a file.
-    """
-    global npc_list
-    with open(filename, 'r') as f:
-        npc_list = json.load(f, cls=NPCSchema)
+    npc_cradle.create_npc(npc_data)
 ```

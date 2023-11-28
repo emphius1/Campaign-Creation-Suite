@@ -1,44 +1,35 @@
 ```python
-import json
-from .utils import AIWritingAssistant
-from .assets.story_arcs import StoryArcSchema
-from .assets.adventures import AdventureSchema
+from shared_dependencies.data_schemas import StoryArcSchema, AdventureSchema
+from shared_dependencies.exported_variables import story_arcs, adventures
+from shared_dependencies.message_names import StoryArcCreated, AdventureCreated
+from shared_dependencies.function_names import createStoryArc, createAdventure
 
-story_arcs = []
-adventures = []
+class ArchAndQuill:
+    def __init__(self):
+        self.story_arcs = story_arcs
+        self.adventures = adventures
 
-def createStoryArc(title, plot_points, tags=[]):
-    global story_arcs
-    story_arc = StoryArcSchema(title=title, plot_points=plot_points, tags=tags)
-    story_arcs.append(story_arc)
-    return story_arc
+    def create_story_arc(self, story_arc_data):
+        new_story_arc = StoryArcSchema(**story_arc_data)
+        self.story_arcs.append(new_story_arc)
+        return StoryArcCreated
 
-def createAdventure(title, story_arc, tags=[]):
-    global adventures
-    adventure = AdventureSchema(title=title, story_arc=story_arc, tags=tags)
-    adventures.append(adventure)
-    return adventure
+    def create_adventure(self, adventure_data):
+        new_adventure = AdventureSchema(**adventure_data)
+        self.adventures.append(new_adventure)
+        return AdventureCreated
 
-def getAIWritingAssistantFeedback(text):
-    assistant = AIWritingAssistant()
-    feedback = assistant.getFeedback(text)
-    return feedback
+    def get_story_arcs(self):
+        return self.story_arcs
 
-def saveStoryArcsToFile():
-    with open('story_arcs.json', 'w') as f:
-        json.dump([arc.to_dict() for arc in story_arcs], f)
+    def get_adventures(self):
+        return self.adventures
 
-def saveAdventuresToFile():
-    with open('adventures.json', 'w') as f:
-        json.dump([adventure.to_dict() for adventure in adventures], f)
+arch_and_quill = ArchAndQuill()
 
-def loadStoryArcsFromFile():
-    global story_arcs
-    with open('story_arcs.json', 'r') as f:
-        story_arcs = [StoryArcSchema.from_dict(arc) for arc in json.load(f)]
+def createStoryArc(story_arc_data):
+    return arch_and_quill.create_story_arc(story_arc_data)
 
-def loadAdventuresFromFile():
-    global adventures
-    with open('adventures.json', 'r') as f:
-        adventures = [AdventureSchema.from_dict(adventure) for adventure in json.load(f)]
+def createAdventure(adventure_data):
+    return arch_and_quill.create_adventure(adventure_data)
 ```

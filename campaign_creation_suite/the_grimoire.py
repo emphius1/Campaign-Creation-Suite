@@ -1,27 +1,27 @@
 ```python
-import json
-from campaign_creation_suite.utils import ModuleSchema
+from shared_dependencies.exported_variables import prebuilt_modules
+from shared_dependencies.data_schemas import ModuleSchema
+from shared_dependencies.message_names import ModuleImported
+from shared_dependencies.function_names import importModule
 
-prebuilt_modules = []
+class TheGrimoire:
+    def __init__(self):
+        self.modules = prebuilt_modules
 
-def load_modules():
-    global prebuilt_modules
-    try:
-        with open('campaign_creation_suite/assets/prebuilt_modules.json', 'r') as file:
-            data = json.load(file)
-            for module in data:
-                validated_module = ModuleSchema(**module)
-                prebuilt_modules.append(validated_module)
-    except FileNotFoundError:
-        print("Prebuilt modules file not found. Please ensure the file exists.")
+    def import_module(self, module_id):
+        try:
+            module = self.modules[module_id]
+            if ModuleSchema.validate(module):
+                importModule(module)
+                print(ModuleImported.format(module_id))
+            else:
+                print("Invalid module schema.")
+        except KeyError:
+            print("Module not found.")
 
-def import_module(module_name):
-    global prebuilt_modules
-    for module in prebuilt_modules:
-        if module.name == module_name:
-            return module
-    print(f"Module {module_name} not found in the grimoire.")
-    return None
+    def list_modules(self):
+        for module_id, module in self.modules.items():
+            print(f"ID: {module_id}, Name: {module['name']}, Description: {module['description']}")
 
-load_modules()
+the_grimoire = TheGrimoire()
 ```

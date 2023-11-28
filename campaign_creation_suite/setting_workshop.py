@@ -1,66 +1,38 @@
 ```python
-import random
-from .utils import CampaignSchema
+from shared_dependencies.exported_variables import campaign_settings
+from shared_dependencies.data_schemas import CampaignSchema
+from shared_dependencies.message_names import CampaignCreated
+from shared_dependencies.function_names import createCampaign
 
-campaign_settings = []
+class SettingWorkshop:
+    def __init__(self):
+        self.campaign_schema = CampaignSchema()
+        self.dom_element_id = 'setting_workshop'
 
-def createCampaign(template_type="random"):
-    if template_type == "random":
-        campaign = generateRandomCampaign()
-    elif template_type == "custom":
-        campaign = generateCustomCampaign()
-    elif template_type == "preset":
-        campaign = generatePresetCampaign()
-    else:
-        raise ValueError("Invalid template type. Choose from 'random', 'custom', or 'preset'.")
+    def create_campaign(self, campaign_data):
+        campaign = self.campaign_schema.load(campaign_data)
+        campaign_settings.append(campaign)
+        self.send_message(CampaignCreated, campaign)
+        return campaign
 
-    campaign_settings.append(campaign)
-    return campaign
+    def send_message(self, message_name, data):
+        # This function will send a message to the rest of the application
+        # The implementation of this function depends on the specific messaging system used
+        pass
 
-def generateRandomCampaign():
-    campaign = CampaignSchema(
-        lore = generateLore(),
-        locations = generateLocations(),
-        deities = generateDeities(),
-        other_elements = generateOtherElements()
-    )
-    return campaign
+    def receive_message(self, message_name, data):
+        # This function will receive messages from the rest of the application
+        # The implementation of this function depends on the specific messaging system used
+        if message_name == CampaignCreated:
+            self.create_campaign(data)
 
-def generateCustomCampaign():
-    # This function will interact with the user interface to gather user inputs
-    # For the sake of this example, we will return a placeholder campaign
-    campaign = CampaignSchema(
-        lore = "Custom Lore",
-        locations = ["Custom Location 1", "Custom Location 2"],
-        deities = ["Custom Deity 1", "Custom Deity 2"],
-        other_elements = ["Custom Element 1", "Custom Element 2"]
-    )
-    return campaign
+    def load_template(self, template_name):
+        # This function will load a campaign template
+        # The implementation of this function depends on how templates are stored and managed
+        pass
 
-def generatePresetCampaign():
-    # This function will load a preset campaign from the database
-    # For the sake of this example, we will return a placeholder campaign
-    campaign = CampaignSchema(
-        lore = "Preset Lore",
-        locations = ["Preset Location 1", "Preset Location 2"],
-        deities = ["Preset Deity 1", "Preset Deity 2"],
-        other_elements = ["Preset Element 1", "Preset Element 2"]
-    )
-    return campaign
-
-def generateLore():
-    # This function will generate random lore
-    return "Random Lore"
-
-def generateLocations():
-    # This function will generate random locations
-    return ["Random Location 1", "Random Location 2"]
-
-def generateDeities():
-    # This function will generate random deities
-    return ["Random Deity 1", "Random Deity 2"]
-
-def generateOtherElements():
-    # This function will generate other random elements
-    return ["Random Element 1", "Random Element 2"]
+    def save_campaign(self, campaign):
+        # This function will save a campaign
+        # The implementation of this function depends on how campaigns are stored and managed
+        pass
 ```
