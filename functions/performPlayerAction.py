@@ -1,9 +1,10 @@
 ```python
-from shared_dependencies.data_schemas import PlayerActionSchema
-from shared_dependencies.exported_variables import player_actions
+from schemas.PlayerActionSchema import PlayerActionSchema
+from messages.PlayerActionPerformed import PlayerActionPerformed
 
 def performPlayerAction(action_data):
     action = PlayerActionSchema(**action_data)
     player_actions.append(action)
-    return {"message": "PlayerActionPerformed", "action": action}
+    PlayerActionPerformed.emit(action)
+    return action
 ```

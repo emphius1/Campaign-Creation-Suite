@@ -1,11 +1,9 @@
 ```python
-from selenium import webdriver
-from selenium.webdriver.common.by import By
+from flask import Flask, render_template
 
-class DIYRPGKit:
-    def __init__(self, driver):
-        self.driver = driver
+app = Flask(__name__)
 
-    def get_element(self):
-        return self.driver.find_element(By.ID, 'diy_rpg_kit')
+@app.route("/diy_rpg_kit")
+def diy_rpg_kit():
+    return render_template("diy_rpg_kit.html")
 ```

@@ -1,10 +1,9 @@
 ```python
-class DMJournal:
-    def __init__(self):
-        self.element_id = "dm_journal"
+from flask import Flask, render_template
 
-    def get_element(self):
-        return document.getElementById(self.element_id)
+app = Flask(__name__)
 
-dm_journal = DMJournal()
+@app.route("/dm_journal")
+def dm_journal():
+    return render_template("dm_journal.html")
 ```

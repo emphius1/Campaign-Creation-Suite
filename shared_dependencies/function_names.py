@@ -1,12 +1,13 @@
-# This file will contain the function names as constants that can be used throughout the application
-
-CREATE_CAMPAIGN = 'createCampaign'
-CREATE_NPC = 'createNPC'
-CREATE_STORY_ARC = 'createStoryArc'
-CREATE_ADVENTURE = 'createAdventure'
-DEFINE_ROLE = 'defineRole'
-DEFINE_OBJECTIVE = 'defineObjective'
-ESTABLISH_RELATIONSHIP = 'establishRelationship'
-LOG_TIMELINE_EVENT = 'logTimelineEvent'
-PERFORM_PLAYER_ACTION = 'performPlayerAction'
-IMPORT_MODULE = 'importModule'
+```python
+# Function Names
+createCampaign = "createCampaign"
+createNPC = "createNPC"
+createStoryArc = "createStoryArc"
+createAdventure = "createAdventure"
+defineRole = "defineRole"
+defineObjective = "defineObjective"
+establishRelationship = "establishRelationship"
+logTimelineEvent = "logTimelineEvent"
+performPlayerAction = "performPlayerAction"
+importModule = "importModule"
+```

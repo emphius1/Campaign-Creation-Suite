@@ -4,4 +4,4 @@ class ModuleImported:
         self.timestamp = timestamp
 
     def __str__(self):
-        return f'Module {self.module_name} was successfully imported at {self.timestamp}'
+        return f'Module "{self.module_name}" was successfully imported at {self.timestamp}'

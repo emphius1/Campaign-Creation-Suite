@@ -1,15 +1,12 @@
-```javascript
-document.getElementById('campaign_orchestrator').addEventListener('click', function() {
-    // Import necessary dependencies
-    const campaignSettings = require('../shared_dependencies/exported_variables').campaign_settings;
-    const createCampaign = require('../shared_dependencies/function_names').createCampaign;
-    const CampaignCreated = require('../shared_dependencies/message_names').CampaignCreated;
+```python
+from flask import Flask, render_template
 
-    // Create a new campaign
-    let newCampaign = createCampaign(campaignSettings);
+app = Flask(__name__)
 
-    // Dispatch a message to notify that a new campaign has been created
-    let event = new CustomEvent(CampaignCreated, { detail: newCampaign });
-    document.dispatchEvent(event);
-});
+@app.route("/campaign_orchestrator")
+def campaign_orchestrator():
+    return render_template("campaign_orchestrator.html")
+
+if __name__ == "__main__":
+    app.run(debug=True)
 ```

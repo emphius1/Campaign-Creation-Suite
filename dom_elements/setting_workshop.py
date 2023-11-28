@@ -1,38 +1,45 @@
 ```python
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-
 class SettingWorkshop:
-    def __init__(self, driver):
-        self.driver = driver
+    def __init__(self):
+        self.id = 'setting_workshop'
+        self.campaign_settings = None
+        self.npc_list = None
+        self.story_arcs = None
+        self.adventures = None
+        self.npc_roles = None
+        self.npc_objectives = None
+        self.npc_relationships = None
+        self.timeline_events = None
+        self.player_actions = None
+        self.prebuilt_modules = None
 
-    def get_campaign_settings(self):
-        return self.driver.find_element(By.ID, 'campaign_settings')
+    def load_campaign_settings(self, campaign_settings):
+        self.campaign_settings = campaign_settings
 
-    def get_npc_list(self):
-        return self.driver.find_element(By.ID, 'npc_list')
+    def load_npc_list(self, npc_list):
+        self.npc_list = npc_list
 
-    def get_story_arcs(self):
-        return self.driver.find_element(By.ID, 'story_arcs')
+    def load_story_arcs(self, story_arcs):
+        self.story_arcs = story_arcs
 
-    def get_adventures(self):
-        return self.driver.find_element(By.ID, 'adventures')
+    def load_adventures(self, adventures):
+        self.adventures = adventures
 
-    def get_npc_roles(self):
-        return self.driver.find_element(By.ID, 'npc_roles')
+    def load_npc_roles(self, npc_roles):
+        self.npc_roles = npc_roles
 
-    def get_npc_objectives(self):
-        return self.driver.find_element(By.ID, 'npc_objectives')
+    def load_npc_objectives(self, npc_objectives):
+        self.npc_objectives = npc_objectives
 
-    def get_npc_relationships(self):
-        return self.driver.find_element(By.ID, 'npc_relationships')
+    def load_npc_relationships(self, npc_relationships):
+        self.npc_relationships = npc_relationships
 
-    def get_timeline_events(self):
-        return self.driver.find_element(By.ID, 'timeline_events')
+    def load_timeline_events(self, timeline_events):
+        self.timeline_events = timeline_events
 
-    def get_player_actions(self):
-        return self.driver.find_element(By.ID, 'player_actions')
+    def load_player_actions(self, player_actions):
+        self.player_actions = player_actions
 
-    def get_prebuilt_modules(self):
-        return self.driver.find_element(By.ID, 'prebuilt_modules')
+    def load_prebuilt_modules(self, prebuilt_modules):
+        self.prebuilt_modules = prebuilt_modules
 ```

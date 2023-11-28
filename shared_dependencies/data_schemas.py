@@ -1,58 +1,54 @@
 ```python
-from pydantic import BaseModel
-from typing import List, Optional
+from marshmallow import Schema, fields
 
-class CampaignSchema(BaseModel):
-    name: str
-    description: str
-    adventures: List[str]
+class CampaignSchema(Schema):
+    id = fields.Int(required=True)
+    name = fields.Str(required=True)
+    description = fields.Str(required=True)
 
-class NPCSchema(BaseModel):
-    name: str
-    role: str
-    objective: str
-    relationships: List[str]
+class NPCSchema(Schema):
+    id = fields.Int(required=True)
+    name = fields.Str(required=True)
+    role = fields.Str(required=True)
+    objective = fields.Str(required=True)
 
-class StoryArcSchema(BaseModel):
-    name: str
-    description: str
-    npcs: List[str]
-    adventures: List[str]
+class StoryArcSchema(Schema):
+    id = fields.Int(required=True)
+    name = fields.Str(required=True)
+    description = fields.Str(required=True)
 
-class AdventureSchema(BaseModel):
-    name: str
-    description: str
-    npcs: List[str]
-    story_arc: str
+class AdventureSchema(Schema):
+    id = fields.Int(required=True)
+    name = fields.Str(required=True)
+    description = fields.Str(required=True)
 
-class RoleSchema(BaseModel):
-    name: str
-    description: str
+class RoleSchema(Schema):
+    id = fields.Int(required=True)
+    name = fields.Str(required=True)
+    description = fields.Str(required=True)
 
-class ObjectiveSchema(BaseModel):
-    name: str
-    description: str
+class ObjectiveSchema(Schema):
+    id = fields.Int(required=True)
+    name = fields.Str(required=True)
+    description = fields.Str(required=True)
 
-class RelationshipSchema(BaseModel):
-    npc1: str
-    npc2: str
-    relationship: str
+class RelationshipSchema(Schema):
+    id = fields.Int(required=True)
+    name = fields.Str(required=True)
+    description = fields.Str(required=True)
 
-class TimelineEventSchema(BaseModel):
-    event: str
-    time: str
-    involved_npcs: List[str]
-    consequences: List[str]
+class TimelineEventSchema(Schema):
+    id = fields.Int(required=True)
+    name = fields.Str(required=True)
+    description = fields.Str(required=True)
 
-class PlayerActionSchema(BaseModel):
-    action: str
-    time: str
-    involved_npcs: List[str]
-    consequences: List[str]
+class PlayerActionSchema(Schema):
+    id = fields.Int(required=True)
+    name = fields.Str(required=True)
+    description = fields.Str(required=True)
 
-class ModuleSchema(BaseModel):
-    name: str
-    description: str
-    involved_npcs: List[str]
-    consequences: List[str]
+class ModuleSchema(Schema):
+    id = fields.Int(required=True)
+    name = fields.Str(required=True)
+    description = fields.Str(required=True)
 ```

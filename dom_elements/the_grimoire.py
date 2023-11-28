@@ -1,12 +1,8 @@
 ```python
-from flask import Flask, render_template
+class TheGrimoire:
+    def __init__(self):
+        self.element_id = "the_grimoire"
 
-app = Flask(__name__)
-
-@app.route("/the_grimoire")
-def the_grimoire():
-    return render_template("the_grimoire.html")
-
-if __name__ == "__main__":
-    app.run(debug=True)
+    def render(self):
+        return f'<div id="{self.element_id}"></div>'
 ```

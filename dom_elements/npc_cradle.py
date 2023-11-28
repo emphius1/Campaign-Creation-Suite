@@ -1,19 +1,13 @@
 ```python
+from flask import Flask, render_template
 from shared_dependencies.exported_variables import npc_list
-from shared_dependencies.data_schemas import NPCSchema
-from shared_dependencies.message_names import NPCCreated
-from shared_dependencies.function_names import createNPC
 
-class NPCCradle:
-    def __init__(self):
-        self.element_id = "npc_cradle"
-        self.npc_list = npc_list
+app = Flask(__name__)
 
-    def create_npc(self, npc_data):
-        new_npc = createNPC(npc_data, NPCSchema)
-        self.npc_list.append(new_npc)
-        self.send_message(NPCCreated, new_npc)
+@app.route("/npc_cradle")
+def npc_cradle():
+    return render_template("npc_cradle.html", npc_list=npc_list)
 
-    def send_message(self, message_name, data):
-        print(f"{message_name}: {data}")
+if __name__ == "__main__":
+    app.run(debug=True)
 ```
