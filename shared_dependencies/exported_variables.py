@@ -1,7 +1,7 @@
 ```python
-# campaign_creation_suite/shared_dependencies/exported_variables.py
+# shared_dependencies/exported_variables.py
 
-# Initialize exported variables
+# Exported Variables
 campaign_settings = {}
 npc_list = []
 story_arcs = []
